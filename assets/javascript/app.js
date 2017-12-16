@@ -43,6 +43,31 @@ $("#submitBtn").on("click", function() {
     $('#monthlyRate').val('');
 });
 
+database.ref().on('child_added', function(childSnapshot, prevChildName) {
+  // do something with the child
+  let name = childSnapshot.val().employeeName;
+  let role = childSnapshot.val().role;
+  let startDate = childSnapshot.val().startDate;
+  let monthlyRate = childSnapshot.val().monthlyRate;
+  let month =( moment().diff(startDate, 'months'));
+  let totalBilled = (month*monthlyRate);
+  console.log(name);
+  
+  $("#rowSpace").append(`<tr><td> ${name} </td>
+                      <td> ${role} </td>
+                      <td> ${startDate} </td>
+                      <td> ${moment().diff(startDate, 'months')} </td>
+                      <td> ${monthlyRate} </td>
+                      <td> ${totalBilled} </td> </tr>`);
+
+  
+});
+
+
+
+
+
+
 
 
 
